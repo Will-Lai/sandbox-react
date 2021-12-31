@@ -1,84 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Header = (props) => {
-    return (
-        <div>
-            <h1>{props.course}</h1>
-        </div>
-    )
-}
 
-const Content = (props) => {
-    return (
-        <div>
-            <Part part={props.part[0].name} ex={props.part[0].exercises}/>
-            <Part part={props.part[1].name} ex={props.part[1].exercises}/>
-            <Part part={props.part[2].name} ex={props.part[2].exercises}/>
-        </div>
-    )
-}
+const Heading = (props) => <h1>{props.heading}</h1>
 
-const Part = (props) => {
-    return (
-        <div>
-            <p>
-                {props.part} {props.ex}
-            </p>
-        </div>
-    )
-}
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 
-const Total = (props) => {
-    return (
-        <div>
-            <p>Number of exercises {props.ex[0].exercises + props.ex[1].exercises + props.ex[2].exercises}</p>
-        </div>
-    )
-}
+const Display = (props) => <div>{props.text} {props.data}</div>
 
-const Hello = ({name, age}) => {
-    const bornYear = () => new Date().getFullYear() - age
+const App = () => {
+
+    const [goodVal, setGoodVal] = useState(0)
+    const [neutralVal, setNeutralVal] = useState(0)
+    const [badVal, setBadVal] = useState(0)
 
     return (
         <div>
-            <p>Hello {name}, you are {age} years old</p>
-            <p>So you were probably born in {bornYear()}</p>
-        </div>
-    )
-}
+            <Heading heading={"give feedback"} />
 
+            <Button onClick={() => setGoodVal(goodVal + 1)} text={"good"}/>
+            <Button onClick={() => setNeutralVal(neutralVal + 1)} text={"neutral"}/>
+            <Button onClick={() => setBadVal(badVal + 1)} text={"bad"}/>
 
+            <Heading heading={"statistics"} />
+            <Display text={"good"} data={goodVal} />
+            <Display text={"neutral"} data={neutralVal} />
+            <Display text={"bad"} data={badVal} />
 
-const App = (props) => {
-    const course = {
-        name: 'Half Stack application development',
-        parts: [
-          {
-            name: 'Fundamentals of React',
-            exercises: 10
-          },
-          {
-            name: 'Using props to pass data',
-            exercises: 7
-          },
-          {
-            name: 'State of a component',
-            exercises: 14
-          }
-        ]
-      }
-
-
-    const {counter} = props
-
-    return (
-        <div>
-            {/* <Header course={course.name} />
-            <Content part={course.parts} />
-            <Total ex={course.parts} /> */}
-
-            <Hello age={26} name={"William"}/>
-            <div>{counter}</div>
         </div>
     )
 }
